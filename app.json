@@ -16,6 +16,7 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "userInterfaceStyle": "dark",
     "ios": {
       "supportsTablet": true
     },

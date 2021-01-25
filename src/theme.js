@@ -1,4 +1,17 @@
 export default {
-  MAIN_COLOR: "#000", 
+  PRIMARY_COLOR: "#0A0D12", // 0A0D12
   SECONDARY_COLOR: "#fff",
-}
+  /////////////////////////////////
+  TERTIARY_COLOR: "rgba(255, 255, 255, .1)",
+  MODAL_BGC_COLOR: "#191B1E", // 0C0F14
+  BUTTONS_COLOR: "rgba(255, 255, 255, .1)",
+  QUATERNARY_COLOR: "#c",
+  FIFTERNARY_COLOR: "#FF1744",
+  ACTIVE_OPACITY: 0.8,
+  HEADER: 22,
+  MANTRA_HEADER: 24,
+  CONTAINER_HEADER: 18,
+  TEXT: 16,
+  TEXT_LINEHEIGHT: 18,
+  CONTAINER_FONT_FAMILY: "norms-medium",
+};

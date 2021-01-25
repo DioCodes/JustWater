@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Dimensions, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native'
+
 import { MainScreen } from '../screens/MainScreen'
 import { UserScreen } from '../screens/UserScreen';
 import theme from '../theme';
@@ -8,7 +9,8 @@ export const CustomSlideNavigation = () => {
   const [active, setActive] = useState(0);
 
   const allScreens = useRef(null);
-  const mainScreenPosition = 414;
+  // const mainScreenPosition = 414;
+  const mainScreenPosition = 0;
   const countOfScreens = screens.length;
 
   let change = ({ nativeEvent }) => {
@@ -23,7 +25,7 @@ export const CustomSlideNavigation = () => {
 
   useEffect(() => {
     allScreens.current.scrollTo({x:mainScreenPosition, animated: false})
-    setActive(1);
+    // setActive(1); // сделать активным второй экран
     return () => {
       // cleanup
     }
@@ -31,6 +33,7 @@ export const CustomSlideNavigation = () => {
 
   return (
     <View style={styles.navigation}>
+      <StatusBar barStyle="light-content" />
       <ScrollView 
         style={{paddingBottom: 60}}
         ref={allScreens}
@@ -73,19 +76,19 @@ const screens = [
   },
   {
     key: "s2",
-    screen: <MainScreen />
-  },
-  {
-    key: "s3",
     screen: <UserScreen />
   },
+  // {
+  //   key: "s3",
+  //   screen: <UserScreen />
+  // },
 ]
 
 
 const styles = StyleSheet.create({
   navigation: {
     flex: 1, 
-    backgroundColor: theme.MAIN_COLOR
+    backgroundColor: theme.PRIMARY_COLOR
   },
   pagination: {
     position: 'absolute',
