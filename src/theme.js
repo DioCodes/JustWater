@@ -1,4 +1,5 @@
 export default {
+  WATER_COLOR: "#3884ff",
   PRIMARY_COLOR: "#0A0D12", // 0A0D12
   SECONDARY_COLOR: "#fff",
   /////////////////////////////////

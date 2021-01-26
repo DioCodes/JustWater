@@ -1,11 +1,11 @@
 import React from 'react'
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native'
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 
 import * as Haptics from "expo-haptics";
 import { Ionicons } from "@expo/vector-icons";
 import theme from '../theme';
 
-export const Button = ({onPress, name, icon}) => {
+export const Button = ({onPress, name, iconName, style = styles.mainContainer}) => {
   const onPressHandler = () => {
     onPress();
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -13,13 +13,13 @@ export const Button = ({onPress, name, icon}) => {
 
   return (
     <TouchableOpacity
-      style={styles.mainContainer}
+      style={{...styles.mainContainer, ...style}}
       activeOpacity={theme.ACTIVE_OPACITY}
       onPress={onPressHandler}
     >
       <View style={styles.btnCont}>
         <Text style={styles.header}>{name}</Text>
-        { icon ? <Text style={styles.icon}>{icon}</Text> :
+        { iconName ?  <Ionicons name={iconName} size={30} color="white" /> :
         <Ionicons
           name="ios-arrow-forward"
           color="rgba(255, 255, 255, .25)"

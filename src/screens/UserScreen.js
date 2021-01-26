@@ -41,25 +41,19 @@ export const UserScreen = () => {
       </View>
 
       <Button name="Оценить JustWater" 
-        icon={
-          <Ionicons name="ios-star" size={30} color="white" />
-        } 
+        iconName="ios-star" 
         onPress={
           () => Linking.openURL(`https://apps.apple.com/app/apple-store/id${itunesItemId}?action=write-review`)
         }
       />
 
       <Button name="Поделиться приложением" 
-        icon={
-          <Ionicons name="arrow-redo-sharp" size={30} color="white" />
-        } 
+        iconName="arrow-redo-sharp"
         onPress={onShare}
       />
 
       <Button name="Instagram разработчика" 
-        icon={
-          <Ionicons name="logo-instagram" size={30} color="white" />
-        } 
+        iconName="logo-instagram"
         onPress={
           () => Linking.openURL("instagram://user?username=denys_dev")
         }
