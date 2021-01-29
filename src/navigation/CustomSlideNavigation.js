@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     borderRadius: 50,
     justifyContent: 'space-between',
-    backgroundColor: 'rgba(255, 255, 255, .5)',
+    backgroundColor: theme.TERTIARY_COLOR,
   },
   pagingDot: {
     height: 10,

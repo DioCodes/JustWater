@@ -1,63 +1,158 @@
-import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import React, { useLayoutEffect, useEffect, useState, useRef } from 'react';
+import { StyleSheet, View, Text, Animated, Easing } from 'react-native';
 
-import Animated from 'react-native-reanimated';
 import Svg, { Path } from 'react-native-svg';
 import MaskedView from '@react-native-masked-view/masked-view';
+import { useSelector } from 'react-redux';
 
-export const Waves = () => {
+export const Waves = ({ wavesParams }) => {
+  const [waves, setWaves] = useState([])
   const AnimatedSvg = Animated.createAnimatedComponent(Svg);
-
-  const A = 5;
-  const H = 75;
-  const T = 200;
-
-  const fill = "#fff";
-
+  const AnimatedPath = Animated.createAnimatedComponent(Path);
+  
+  let dCups = useSelector((state) => state.cups.drinkedCups);
+  
+  const maxH = 290;
+  
+  const speed = 2000;
+  const speedIncreasePerWave = 1000;
+  const easing = 'linear';
+  let h = new Animated.Value(100);
+  let animHeight = useRef(new Animated.Value(dCups/6)).current; // 0.16 -> 1/6
+  
   const _animValues = [];
 
-  _animValues.push(new Animated.Value(1));
+  // ANIMATIONS //
+  const startAnim = () => {
+    for (let i = 0; i < _animValues.length; i++) {
+      let anim = Animated.loop(Animated.timing(_animValues[i], {
+        toValue: 1,
+        duration: speed + i * speedIncreasePerWave,
+        easing: Easing[easing],
+        useNativeDriver: true,
+      }));
 
-  let translateX = _animValues[0].interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, -2 * T],
-  });
+      anim.start();
+    }
+  }
 
-  return (
-    <MaskedView
-        style={{ flex: 1 }}
-        maskElement={
-          <View style={styles.circle} />
-        }
-      > 
+  const animateToTop = () => {
+    Animated.timing(animHeight, {
+      toValue: dCups >= 6 ? 1 : dCups/6,
+      duration: 1000,
+      easing: Easing.linear,
+      useNativeDriver: true
+    }).start();
+  }
+
+  const animateToBottom = () => {
+    Animated.timing(animHeight, {
+      toValue: 0,
+      duration: 2500,
+      easing: Easing.linear,
+      useNativeDriver: true
+    }).start();
+  }
+
+  const getWaves = () => {
+    const wavesContainer = [];
+    
+    for (let i = 0; i < wavesParams.length; i ++) {    
+      _animValues.push(new Animated.Value(0));
+
+      let {A, T, fill} = wavesParams[i];
+      let translateX = _animValues[i].interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, -1 * T],
+      });
+
+      let animatedHeight = animHeight.interpolate({
+        inputRange: [0, 1],
+        outputRange: [
+          `M 0 0 Q ${T / 4} ${-A} ${T / 2} 0 T ${T} 0 T ${3 * T / 2} 0 T ${2 * T} 0T ${5 * T / 2} 0 T ${3 * T} 0 V ${0} H 0 Z`, 
+
+          `M 0 0 Q ${T / 4} ${-A} ${T / 2} 0 T ${T} 0 T ${3 * T / 2} 0 T ${2 * T} 0T ${5 * T / 2} 0 T ${3 * T} 0 V ${maxH} H 0 Z`],
+      });
+
+      let animatedViewBox = animHeight.interpolate({
+        inputRange: [0, 1],
+        outputRange: [`0 0 ${3 * T} ${A + 0}`, `0 0 ${3 * T} ${A + maxH}`]
+      })
+
+      let animatedSVGHeight = animHeight.interpolate({
+        inputRange: [0, 1],
+        outputRange: [maxH, 0]
+      })
+
+      let wave = (
         <AnimatedSvg
+          key={i}
           style={{
-            width: 3 * T,
-            height: A + H,
             left: 0,
             bottom: 0,
             position: 'absolute',
-            // transform: [{ translateX }],
-            transform: [{ translateX: 0 }],
+            width: 3 * T,
+            height: A + maxH,
+            transform: [
+              { translateX },
+              { translateY: animatedSVGHeight },
+            ],
           }}
           preserveAspectRatio="xMinYMin meet"
-          viewBox={`0 0 ${3 * T} ${A + H}`}
+          viewBox={animatedViewBox}
         >
-          <Path
-            d={`M 0 0 Q ${T / 4} ${-A} ${T / 2} 0 T ${T} 0 T ${3 * T / 2} 0 T ${2 * T} 0T ${5 * T / 2} 0 T ${3 * T} 0 V ${H} H 0 Z`}
+          <AnimatedPath
+            d={animatedHeight}
             fill={fill}
             transform={`translate(0, ${A})`}
           />
         </AnimatedSvg>
-      </MaskedView>
+      )
+    
+      wavesContainer.push(wave)
+    }
+
+    return setWaves(wavesContainer);
+  }
+
+  useLayoutEffect(() => {
+    getWaves();
+    startAnim()
+  }, []);
+  
+  useEffect(() => {
+    if (dCups >= 1) {
+      animateToTop()
+    } else {
+      animateToBottom()
+    }
+  }, [dCups])
+
+  useEffect(() => {
+    console.log(animHeight)
+  })
+  
+  return (
+    <MaskedView
+      style={styles.mask}
+      maskElement={
+        <View style={styles.circle} />
+      }
+    > 
+      {waves}
+    </MaskedView>
   )
 }
 
 const styles = StyleSheet.create({
+  mask: {
+    flex: 1
+  },
   circle: {
     flex: 1,
     width: "100%",
+    height: "100%",
     backgroundColor: 'red',
-    borderRadius: 150,
-  }
+    borderRadius: 150
+  },
 });

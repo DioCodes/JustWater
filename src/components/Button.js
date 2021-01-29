@@ -5,7 +5,7 @@ import * as Haptics from "expo-haptics";
 import { Ionicons } from "@expo/vector-icons";
 import theme from '../theme';
 
-export const Button = ({onPress, name, iconName, style = styles.mainContainer}) => {
+export const Button = ({ onPress, name, iconName, style = styles.mainContainer, center = false }) => {
   const onPressHandler = () => {
     onPress();
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -17,14 +17,14 @@ export const Button = ({onPress, name, iconName, style = styles.mainContainer}) 
       activeOpacity={theme.ACTIVE_OPACITY}
       onPress={onPressHandler}
     >
-      <View style={styles.btnCont}>
+      
+      <View style={{
+        ...styles.btnCont, 
+        justifyContent: center ? "center" : "space-between"
+      }}>
         <Text style={styles.header}>{name}</Text>
         { iconName ?  <Ionicons name={iconName} size={30} color="white" /> :
-        <Ionicons
-          name="ios-arrow-forward"
-          color="rgba(255, 255, 255, .25)"
-          size={26}
-        />
+        null
         }
       </View>
     </TouchableOpacity>
@@ -34,7 +34,7 @@ export const Button = ({onPress, name, iconName, style = styles.mainContainer}) 
 const styles = StyleSheet.create({
   mainContainer: {
     width: "100%",
-    backgroundColor: "rgba(255, 255, 255, 0.05)",
+    backgroundColor: theme.BTN_PRIMARY,
     borderRadius: 10,
     paddingHorizontal: 20,
     paddingVertical: 15,
@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
   btnCont: {
     width: "100%",
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
   },
   header: {

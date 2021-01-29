@@ -2,8 +2,9 @@ export default {
   WATER_COLOR: "#3884ff",
   PRIMARY_COLOR: "#0A0D12", // 0A0D12
   SECONDARY_COLOR: "#fff",
+  BTN_PRIMARY: "rgba(255, 255, 255, .05)",
+  TERTIARY_COLOR: "rgba(255, 255, 255, .05)",
   /////////////////////////////////
-  TERTIARY_COLOR: "rgba(255, 255, 255, .1)",
   MODAL_BGC_COLOR: "#191B1E", // 0C0F14
   BUTTONS_COLOR: "rgba(255, 255, 255, .1)",
   QUATERNARY_COLOR: "#c",
