@@ -1,9 +1,9 @@
 import { ADD_CUP, RESET_CUPS } from '../types'
 
-export const addCup = (cup = 1) => {
+export const addCup = (cup = 1, ml = 350) => {
   return {
     type: ADD_CUP,
-    payload: cup
+    payload: ml,
   }
 }
 

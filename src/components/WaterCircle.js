@@ -1,52 +1,34 @@
 import React, { useState } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, View, Text } from 'react-native'
 
+import * as Haptics from "expo-haptics";
 import { useDispatch } from 'react-redux';
-import { addCup, resetCups } from '../store/actions/cupsActions';
+import { addCup } from '../store/actions/cupsActions';
 
 import { Waves } from './Waves';
-import { Button } from './Button';
 import theme from '../theme';
 
 export const WaterCircle = () => {
   const dispatch = useDispatch()
 
   return (
-    <View style={styles.main}>
-      <View style={styles.circle}>
-        <Waves
-          wavesParams={[
-            {A: 10, T: 280, fill: "rgba(255, 255, 255, .25)"},
-            {A: 15, T: 240, fill: "rgba(255, 255, 255, .5)"},
-            {A: 20, T: 200, fill: "#fff"},
-          ]}
-          animated
-        />
+    <TouchableOpacity activeOpacity={theme.ACTIVE_OPACITY} onPress={() => {
+      dispatch(addCup());
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    }}>
+      <View style={styles.main}>
+        <View style={styles.circle}>
+          <Waves
+            wavesParams={[
+              {A: 10, T: 280, fill: "rgba(255, 255, 255, .25)"},
+              {A: 15, T: 240, fill: "rgba(255, 255, 255, .5)"},
+              {A: 20, T: 200, fill: "#fff"},
+            ]}
+            animated
+          />
+        </View>
       </View>
-
-      <Button
-        // name="Drink water"
-        iconName="ios-water-outline"
-        center
-        style={{
-          ...styles.btn, 
-          marginTop: 30
-        }}
-        onPress={() => {
-          dispatch(addCup())
-        }}
-      />
-
-      <Button
-        // name="Reset"
-        iconName="ios-refresh"
-        center
-        style={styles.btn}
-        onPress={() => {
-          dispatch(resetCups())
-        }}
-      />
-    </View>
+    </TouchableOpacity>
   )
 }
 
@@ -63,6 +45,6 @@ const styles = StyleSheet.create({
     borderRadius: 150,
   },
   btn: {
-    width: "50%",
-  }
+    width: "50%"
+  }, 
 })

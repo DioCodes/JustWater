@@ -10,15 +10,13 @@ export const Waves = ({ wavesParams }) => {
   const AnimatedSvg = Animated.createAnimatedComponent(Svg);
   const AnimatedPath = Animated.createAnimatedComponent(Path);
   
-  let dCups = useSelector((state) => state.cups.drinkedCups);
-  
+  let dMl = useSelector((state) => state.cups.drinkedMl);
   const maxH = 290;
-  
   const speed = 2000;
   const speedIncreasePerWave = 1000;
   const easing = 'linear';
   let h = new Animated.Value(100);
-  let animHeight = useRef(new Animated.Value(dCups/6)).current; // 0.16 -> 1/6
+  let animHeight = useRef(new Animated.Value(dMl/2100)).current; // 0.16 -> 1/6
   
   const _animValues = [];
 
@@ -38,7 +36,7 @@ export const Waves = ({ wavesParams }) => {
 
   const animateToTop = () => {
     Animated.timing(animHeight, {
-      toValue: dCups >= 6 ? 1 : dCups/6,
+      toValue: dMl >= 2100 ? 1 : dMl/2100,
       duration: 1000,
       easing: Easing.linear,
       useNativeDriver: true
@@ -117,20 +115,16 @@ export const Waves = ({ wavesParams }) => {
 
   useLayoutEffect(() => {
     getWaves();
-    startAnim()
+    startAnim();
   }, []);
   
   useEffect(() => {
-    if (dCups >= 1) {
-      animateToTop()
+    if (dMl >= 350) {
+      animateToTop();
     } else {
-      animateToBottom()
+      animateToBottom();
     }
-  }, [dCups])
-
-  useEffect(() => {
-    console.log(animHeight)
-  })
+  }, [dMl])
   
   return (
     <MaskedView
@@ -142,11 +136,13 @@ export const Waves = ({ wavesParams }) => {
       {waves}
     </MaskedView>
   )
-}
+};
 
 const styles = StyleSheet.create({
   mask: {
-    flex: 1
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   circle: {
     flex: 1,
