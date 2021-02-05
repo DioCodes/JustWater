@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { StyleSheet, View, SafeAreaView, Text } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { StyleSheet, View, SafeAreaView, Text, Alert } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Button } from '../components/Button'
@@ -10,6 +10,8 @@ import theme from '../theme'
 
 export const MainScreen = () => {
   let drinkedMl = useSelector((state) => state.cups.drinkedMl);
+  let waterGoal = useSelector((state) => state.waterGoal.waterGoal);
+
   const dispatch = useDispatch()
 
   return (
@@ -25,7 +27,7 @@ export const MainScreen = () => {
             dispatch(resetCups())
           }}
         />
-        <Text style={styles.cupsText}>{`${drinkedMl}/2100 мл`}</Text>
+        <Text style={styles.cupsText}>{`${drinkedMl}/${waterGoal} мл`}</Text>
       </View>
       {/*  */}
       <WaterCircle />

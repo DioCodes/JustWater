@@ -1,15 +1,13 @@
 export default {
-  WATER_COLOR: "#3884ff",
   PRIMARY_COLOR: "#0A0D12", // 0A0D12
   SECONDARY_COLOR: "#fff",
-  BTN_PRIMARY: "rgba(255, 255, 255, .1)",
-  TERTIARY_COLOR: "rgba(255, 255, 255, .1)",
-  /////////////////////////////////
+  BTN_PRIMARY: "rgba(255, 255, 255, .05)",
+  TERTIARY_COLOR: "rgba(255, 255, 255, .05)",
   MODAL_BGC_COLOR: "#191B1E", // 0C0F14
-  BUTTONS_COLOR: "rgba(255, 255, 255, .1)",
+  ACTIVE_OPACITY: 0.8,
+  /////////////////////////////////
   QUATERNARY_COLOR: "#c",
   FIFTERNARY_COLOR: "#FF1744",
-  ACTIVE_OPACITY: 0.8,
   HEADER: 22,
   MANTRA_HEADER: 24,
   CONTAINER_HEADER: 18,

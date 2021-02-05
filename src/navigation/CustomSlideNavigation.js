@@ -35,7 +35,7 @@ export const CustomSlideNavigation = () => {
     <View style={styles.navigation}>
       <StatusBar barStyle="light-content" />
       <ScrollView 
-        style={{paddingBottom: 60}}
+        // style={{paddingBottom: 0}}
         ref={allScreens}
         horizontal 
         pagingEnabled
@@ -53,18 +53,19 @@ export const CustomSlideNavigation = () => {
           </View>
           ))
         }
+
       </ScrollView>
 
-      <View style={styles.pagination}>
-        {
-          screens.map((screen, i) => (
-          <View
-            key={i}
-            style={i == active ? styles.pagingActiveDot : styles.pagingDot}
-          ></View>
-          ))
-        }
-      </View>
+        <View style={styles.pagination}>
+          {
+            screens.map((screen, i) => (
+            <View
+              key={i}
+              style={i == active ? styles.pagingActiveDot : styles.pagingDot}
+            ></View>
+            ))
+          }
+        </View>
     </View>
   )
 }
@@ -88,7 +89,12 @@ const screens = [
 const styles = StyleSheet.create({
   navigation: {
     flex: 1, 
-    backgroundColor: theme.PRIMARY_COLOR
+    height: "100%",
+    width: '100%',
+    // backgroundColor: theme.PRIMARY_COLOR,
+    backgroundColor: theme.FIFTERNARY_COLOR,
+    position: 'absolute',
+    bottom: 0
   },
   pagination: {
     position: 'absolute',

@@ -4,7 +4,6 @@ const INITIAL_STATE = {
   drinkedMl: 0,
 };
 
-
 export const cupsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ADD_CUP:

@@ -1,12 +1,15 @@
 import React, { useLayoutEffect, useEffect, useState, useRef } from 'react';
 import { StyleSheet, View, Text, Animated, Easing } from 'react-native';
 
-import Svg, { Path } from 'react-native-svg';
 import MaskedView from '@react-native-masked-view/masked-view';
+import Svg, { Path } from 'react-native-svg';
 import { useSelector } from 'react-redux';
 
 export const Waves = ({ wavesParams }) => {
   const [waves, setWaves] = useState([])
+  const [waterG, setWaterG] = useState(waterGoal);
+  let waterGoal = useSelector((state) => state.waterGoal.waterGoal);
+
   const AnimatedSvg = Animated.createAnimatedComponent(Svg);
   const AnimatedPath = Animated.createAnimatedComponent(Path);
   
@@ -16,7 +19,7 @@ export const Waves = ({ wavesParams }) => {
   const speedIncreasePerWave = 1000;
   const easing = 'linear';
   let h = new Animated.Value(100);
-  let animHeight = useRef(new Animated.Value(dMl/2100)).current; // 0.16 -> 1/6
+  let animHeight = useRef(new Animated.Value(dMl/waterGoal)).current; // 0.16 -> 1/6
   
   const _animValues = [];
 
@@ -36,7 +39,7 @@ export const Waves = ({ wavesParams }) => {
 
   const animateToTop = () => {
     Animated.timing(animHeight, {
-      toValue: dMl >= 2100 ? 1 : dMl/2100,
+      toValue: dMl >= waterGoal ? 1 : dMl/waterGoal,
       duration: 1000,
       easing: Easing.linear,
       useNativeDriver: true
@@ -116,7 +119,11 @@ export const Waves = ({ wavesParams }) => {
   useLayoutEffect(() => {
     getWaves();
     startAnim();
-  }, []);
+    if (waterGoal !== waterG) {
+      animateToTop();
+      setWaterG(waterGoal);
+    }
+  }, [waterGoal]);
   
   useEffect(() => {
     if (dMl >= 350) {
