@@ -5,13 +5,13 @@ export default {
   TERTIARY_COLOR: "rgba(255, 255, 255, .05)",
   MODAL_BGC_COLOR: "#191B1E", // 0C0F14
   ACTIVE_OPACITY: 0.8,
+  CONTAINER_HEADER: 18,
+  CONTAINER_FONT_FAMILY: "norms-medium",
   /////////////////////////////////
   QUATERNARY_COLOR: "#c",
   FIFTERNARY_COLOR: "#FF1744",
   HEADER: 22,
   MANTRA_HEADER: 24,
-  CONTAINER_HEADER: 18,
   TEXT: 16,
   TEXT_LINEHEIGHT: 18,
-  CONTAINER_FONT_FAMILY: "norms-medium",
 };

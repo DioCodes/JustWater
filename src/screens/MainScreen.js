@@ -1,18 +1,21 @@
-import React, { useEffect, useState } from 'react'
-import { StyleSheet, View, SafeAreaView, Text, Alert } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View, SafeAreaView, Text, Alert } from 'react-native';
 
-import { Button } from '../components/Button'
-import { WaterCircle } from '../components/WaterCircle'
-import { resetCups } from '../store/actions/cupsActions'
+import { useDispatch, useSelector } from 'react-redux';
+import { resetCups } from '../store/actions/userActions';
+// import { resetCups } from '../store/actions/cupsActions'
+
+import { Button } from '../components/Button';
+import { WaterCircle } from '../components/WaterCircle';
 
 import theme from '../theme'
 
 export const MainScreen = () => {
   let drinkedMl = useSelector((state) => state.cups.drinkedMl);
-  let waterGoal = useSelector((state) => state.waterGoal.waterGoal);
+  // let waterGoal = useSelector((state) => state.waterGoal.waterGoal);
+  let waterGoal = useSelector((state) => state.user.waterGoal);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   return (
     <SafeAreaView style={styles.main}>

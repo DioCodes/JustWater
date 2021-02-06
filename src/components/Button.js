@@ -49,13 +49,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   header: {
+    color: theme.SECONDARY_COLOR,
     fontSize: theme.CONTAINER_HEADER,
     fontFamily: theme.CONTAINER_FONT_FAMILY,
-    color: "#fff",
   },
   mainWrapper: {
     width: "100%",
-    // backgroundColor: "red",
     height: 45,
     flexDirection: "row",
     alignItems: "center",
@@ -65,7 +64,6 @@ const styles = StyleSheet.create({
     height: "100%",
     flexDirection: "column",
     justifyContent: "space-between",
-    // alignItems: "center",
   },
   time: {
     fontFamily: "norms-regular",
@@ -75,7 +73,8 @@ const styles = StyleSheet.create({
     fontSize: 22
   },
   textIcon: {
-    fontSize: 22,
-    color: theme.SECONDARY_COLOR
+    color: theme.SECONDARY_COLOR,
+    fontSize: theme.CONTAINER_HEADER,
+    fontFamily: 'norms-regular'
   }
 });

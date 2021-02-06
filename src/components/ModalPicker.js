@@ -19,19 +19,34 @@ export const ModalPicker = ({
   onCancel, 
   date, 
   value, 
-  setValue 
+  setValue,
+  valuesFrom,
+  valuesTo,
+  perItem,
+  headerName
 }) => {
   const [nums, setNums] = useState([]);
 
+  // const valuesFrom = 50;
+  // const valuesTo = 5000;
+
   const loadWaterGoalValues = () => {
     let n = [];
-    const maxNum = 5000/50;
+    const maxNum = valuesTo/valuesFrom;
 
-    for (let i = 1; i <= maxNum; i++) {
-      n.push(
-        <Picker.Item key={i} label={`${50*i}`} value={50*i} />
-      )
-    };
+    if (perItem) {
+      for (let i = 1; i <= maxNum; i++) {
+        n.push(
+          <Picker.Item key={i} label={`${valuesFrom*i}`} value={valuesFrom*i} />
+        )
+      };
+    } else {
+      for (let i = valuesFrom; i <= valuesTo; i++) {
+        n.push(
+          <Picker.Item key={i} label={`${i}`} value={i} />
+        )
+      };
+    }
 
     setNums(n);
   };
@@ -76,7 +91,7 @@ export const ModalPicker = ({
       mode="time"
       date={date}
       isDarkModeEnabled
-      headerTextIOS={"Цель на день"}
+      headerTextIOS={headerName}
       cancelTextIOS={"Отменить"}
       confirmTextIOS={"Подтвердить"}
       minuteInterval={5}
