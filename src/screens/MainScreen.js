@@ -2,17 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, SafeAreaView, Text, Alert } from 'react-native';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { resetCups } from '../store/actions/userActions';
-// import { resetCups } from '../store/actions/cupsActions'
+import { resetCups } from '../store/actions/cupsActions';
 
 import { Button } from '../components/Button';
 import { WaterCircle } from '../components/WaterCircle';
 
-import theme from '../theme'
+import theme from '../theme';
 
 export const MainScreen = () => {
   let drinkedMl = useSelector((state) => state.cups.drinkedMl);
-  // let waterGoal = useSelector((state) => state.waterGoal.waterGoal);
   let waterGoal = useSelector((state) => state.user.waterGoal);
 
   const dispatch = useDispatch();
@@ -36,7 +34,7 @@ export const MainScreen = () => {
       <WaterCircle />
     </SafeAreaView>
   )
-}
+};
 
 const styles = StyleSheet.create({
   main: {
@@ -60,4 +58,4 @@ const styles = StyleSheet.create({
     width: "50%",
     backgroundColor: 'transparent'
   }
-})
+});

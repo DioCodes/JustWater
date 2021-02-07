@@ -5,7 +5,14 @@ import * as Haptics from "expo-haptics";
 import { Ionicons } from "@expo/vector-icons";
 import theme from '../theme';
 
-export const Button = ({ onPress, name, iconName, textIcon, style = styles.mainContainer, center = false }) => {
+export const Button = ({ 
+  onPress, 
+  name, 
+  iconName, 
+  textIcon,
+  customIcon,
+  style = styles.mainContainer, 
+  center = false }) => {
   const onPressHandler = () => {
     onPress();
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -23,8 +30,19 @@ export const Button = ({ onPress, name, iconName, textIcon, style = styles.mainC
         justifyContent: center ? "center" : "space-between"
       }}>
         <Text style={styles.header}>{name}</Text>
-        { iconName ? <Ionicons name={iconName} size={30} color="white" /> : textIcon ? <Text style={styles.textIcon}>{textIcon}</Text> : null
+        {/* if (customIcon) {
+          customIcon
+        } else {
+          <Text style={styles.header}>{name}</Text>
+          { iconName ? <Ionicons name={iconName} size={30} color="white" /> : textIcon ? <Text style={styles.textIcon}>{textIcon}</Text> : null
+          }
+        } */}
+
+        {
+          customIcon ? customIcon : 
+            ( iconName ? <Ionicons name={iconName} size={30} color="white" /> : textIcon ? <Text style={styles.textIcon}>{textIcon}</Text> : null )
         }
+        
       </View>
     </TouchableOpacity>
   );

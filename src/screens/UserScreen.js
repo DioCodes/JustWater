@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, Dimensions, Share } from 'react-native'
 
 import * as Linking from 'expo-linking';
+import * as Haptics from "expo-haptics";
 import { Ionicons } from "@expo/vector-icons";
 import { Picker } from '@react-native-picker/picker';
+import SwitchSelector from "react-native-switch-selector";
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserWeight, setUserWaterGoal } from '../store/actions/userActions';
+import { setUserWeight, setUserWaterGoal, setUserGender } from '../store/actions/userActions';
 
 import { Button } from '../components/Button'
 import { UserThanks } from '../components/UserThanks'
@@ -16,14 +18,59 @@ import theme from '../theme'
 export const UserScreen = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isWeightPickerVisible, setIsWeightPickerVisible] = useState(false);
-
   const [wG, setWG] = useState(1400);
   const [weight, setWeight] = useState(50);
+  const [isSwitchSelected, setIsSwitchSelected] = useState(true);
   
-  let waterGoal = useSelector((state) => state.waterGoal.waterGoal);
+  let userGender = useSelector((state) => state.user.gender);
+  let waterGoal = useSelector((state) => state.user.waterGoal);
   let userWeight = useSelector((state) => state.user.weight);
+
   const itunesItemId = 982107779; // ID приложения в магазине
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+
+  const modes = [
+    {
+      customIcon: (
+        <Ionicons
+          name="ios-man"
+          size={20}
+          style={{
+            height: 20,
+            textAlign: "center",
+          }}
+          color={
+            isSwitchSelected && userGender == "Man"
+              ? "black"
+              : !isSwitchSelected && userGender == "Man"
+              ? "black"
+              : "rgba(255, 255, 255, .5)"
+          }
+        />
+      ),
+      value: "Man",
+    },
+    {
+      customIcon: (
+        <Ionicons
+          name="ios-woman"
+          size={20}
+          style={{
+            height: 20,
+            textAlign: "center",
+          }}
+          color={
+            !isSwitchSelected && userGender == "Woman"
+              ? "black"
+              : isSwitchSelected && userGender == "Woman"
+              ? "black"
+              : "rgba(255, 255, 255, .5)"
+          }
+        />
+      ),
+      value: "Woman",
+    },
+  ];
 
   const onShare = async () => {
     try {
@@ -99,6 +146,33 @@ export const UserScreen = () => {
           setIsWeightPickerVisible(true); 
         }}
       />
+
+      <Button 
+        name="Пол"
+        customIcon={
+          <SwitchSelector
+          options={modes}
+          initial={0}
+          onPress={(value) => {
+            setIsSwitchSelected(isSwitchSelected ? false : true);
+            dispatch(setUserGender(value));
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+          }}
+          borderRadius={13}
+          buttonColor="#fff"
+          textColor="rgba(255, 255, 255, .5)"
+          selectedColor="#000"
+          backgroundColor={theme.TERTIARY_COLOR}
+          height={30}
+          style={{
+            width: "40%",
+          }}
+          animationDuration={250}
+        />
+        }
+        onPress={() => {}}
+      />
+
       <Button 
         name="Цель на день" 
         textIcon={`${waterGoal} мл`}
@@ -156,5 +230,22 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: theme.HEADER,
     fontFamily: "norms-bold",
-  }
+  },
+  switchContainer: {
+    width: "100%",
+    backgroundColor: theme.BTN_PRIMARY,
+    borderRadius: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    marginBottom: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    height: 60
+  },
+  switchText: {
+    color: theme.SECONDARY_COLOR,
+    fontSize: theme.CONTAINER_HEADER,
+    fontFamily: theme.CONTAINER_FONT_FAMILY,
+  },
 })

@@ -3,8 +3,7 @@ import { StyleSheet, TouchableOpacity, View, Text } from 'react-native'
 
 import * as Haptics from "expo-haptics";
 import { useDispatch } from 'react-redux';
-import { addCup } from '../store/actions/userActions';
-// import { addCup } from '../store/actions/cupsActions';
+import { addCup } from '../store/actions/cupsActions';
 
 import { Waves } from './Waves';
 import theme from '../theme';
@@ -31,7 +30,7 @@ export const WaterCircle = () => {
       </View>
     </TouchableOpacity>
   )
-}
+};
 
 const styles = StyleSheet.create({
   main: {

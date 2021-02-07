@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 export const Waves = ({ wavesParams }) => {
   const [waves, setWaves] = useState([])
   const [waterG, setWaterG] = useState(waterGoal);
-  let waterGoal = useSelector((state) => state.waterGoal.waterGoal);
+  let waterGoal = useSelector((state) => state.user.waterGoal);
 
   const AnimatedSvg = Animated.createAnimatedComponent(Svg);
   const AnimatedPath = Animated.createAnimatedComponent(Path);
