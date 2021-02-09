@@ -12,7 +12,9 @@ export const Button = ({
   textIcon,
   customIcon,
   style = styles.mainContainer, 
-  center = false }) => {
+  center = false,
+  opacityDisabled
+}) => {
   const onPressHandler = () => {
     onPress();
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -21,7 +23,7 @@ export const Button = ({
   return (
     <TouchableOpacity
       style={{...styles.mainContainer, ...style}}
-      activeOpacity={theme.ACTIVE_OPACITY}
+      activeOpacity={opacityDisabled ? 1 : theme.ACTIVE_OPACITY}
       onPress={onPressHandler}
     >
       

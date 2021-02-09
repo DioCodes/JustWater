@@ -76,9 +76,9 @@ export const ModalPicker = ({
         }}
         enabled
         selectedValue={value}
-        onValueChange={(itemValue, itemIndex) =>
-          setValue(itemValue)
-        }
+        onValueChange={(itemValue, itemIndex) => {
+          setValue(itemValue);
+        }}
       >
       {nums}
       </Picker>

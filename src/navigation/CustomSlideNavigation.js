@@ -5,7 +5,7 @@ import { MainScreen } from '../screens/MainScreen'
 import { UserScreen } from '../screens/UserScreen';
 import theme from '../theme';
 
-export const CustomSlideNavigation = () => {
+export const CustomSlideNavigation = ({ navigation }) => {
   const [active, setActive] = useState(0);
 
   const allScreens = useRef(null);
